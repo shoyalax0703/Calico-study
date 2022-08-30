@@ -30,12 +30,9 @@ Throughout the deployments for the labs, the instances will reboot once provisio
 multipass list
 ```
 Example output:
+<img width="908" alt="Screen Shot 2022-08-30 at 23 25 28" src="https://user-images.githubusercontent.com/66551005/187463110-686b43af-6aa2-4175-9003-579bc4a55f5c.png">
 
-Name                    State             IPv4             Image
-control                 Running           172.17.78.3      Ubuntu 20.04 LTS
-host1                   Running           172.17.78.6      Ubuntu 20.04 LTS
-node1                   Running           172.17.78.7      Ubuntu 20.04 LTS
-node2                   Running           172.17.78.12     Ubuntu 20.04 LTS
+
 
 ## Validating the Environment
 To validate the lab has successfully started after all four instances we will enter the host1 shell:
@@ -47,11 +44,7 @@ Once you reach the command prompt of host1, run kubectl get nodes.
 kubectl get nodes -A
 ```
 Example output:
-
-NAME      STATUS     ROLES    AGE     VERSION
-node1     NotReady   <none>   4m44s   v1.18.10+k3s1
-node2     NotReady   <none>   2m48s   v1.18.10+k3s1
-control   NotReady   master   6m36s   v1.18.10+k3s1
+<img width="908" alt="Screen Shot 2022-08-30 at 23 26 00" src="https://user-images.githubusercontent.com/66551005/187463261-a3700400-813b-493d-90e0-52fafc43f45f.png">
   
 Note the “NotReady” status. This is because we have not yet installed a CNI plugin to provide the networking.
 
