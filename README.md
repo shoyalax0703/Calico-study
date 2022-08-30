@@ -1,6 +1,6 @@
 # Calico study
 
-To begin we will be installing Multipass. Multipass is a utility from Canonical that allows you to create Ubuntu VMs across a range of platforms in a uniform fashion. We recommend using the latest stable version of Multipass (version 1.5.0 at the time of writing). If any difficulty is encountered deploying the labs - please try this version of Multipass and let us know in the #academy slack channel that you encountered issues with a newer version. 
+> To begin we will be installing Multipass. Multipass is a utility from Canonical that allows you to create Ubuntu VMs across a range of platforms in a uniform fashion. We recommend using the latest stable version of Multipass (version 1.5.0 at the time of writing). If any difficulty is encountered deploying the labs - please try this version of Multipass and let us know in the #academy slack channel that you encountered issues with a newer version. 
 
 Multipass installation instructions can be found here: https://multipass.run
 
