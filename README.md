@@ -61,15 +61,18 @@ kubectl create -f https://docs.projectcalico.org/archive/v3.21/manifests/tigera-
 Example output:
 <img width="1350" alt="entrollersconfigurations crd projectcalico org created" src="https://user-images.githubusercontent.com/66551005/188762776-54ebe240-9210-4ea4-92aa-be5f40ef7581.png">
 
-
+```
 kubectl get pods -n tigera-operator
+```
+Example output
+
 <img width="1350" alt="STATUS RESTARTS" src="https://user-images.githubusercontent.com/66551005/188762765-5bf2f2c5-3735-4342-9a49-4e84828ad14f.png">
 
-
-Installing Calico
+Installing Calico.
 After the operator is in a Running state, we will configure an Installation kind for Calico, specifying the IP Pool that we would like below.
 Note that throughout the course we make use of inline manifests (piping stdin to kubectl) to make it easier for you to follow what each manifest does. In most cases it would be a more normal practice to use a vanilla kubectl command with a manifest file (e.g. kubectl apply -f my-installation.yaml).  We recommend taking a minute to read through and make sure you understand the contents of each manifest we apply in this way throughout the rest of the course to get the most out of each example.
 
+```
 cat <<EOF | kubectl apply -f -
 apiVersion: operator.tigera.io/v1
 kind: Installation
@@ -83,40 +86,46 @@ spec:
       natOutgoing: Enabled
       encapsulation: None
 EOF
-
+```
 
 Following the configuration of the installation resource, Calico will begin deploying onto your cluster. This can be validated by running the following command:
+```
 kubectl get tigerastatus/calico
-
+```
 Example output:
 <img width="1350" alt="Screen Shot 2022-08-31 at 6 55 27" src="https://user-images.githubusercontent.com/66551005/188762743-ef51d9d6-fc3b-4909-afa9-c7abff8d641e.png">
 
-
-We can review the environment now by invoking:
+We can review the environment now by invoking
+```
 kubectl get pods -A
+```
 Example output:
 <img width="1350" alt="Screen Shot 2022-08-31 at 6 56 41" src="https://user-images.githubusercontent.com/66551005/188762714-af60a7c4-d8e3-4a5d-994c-a58c7599698d.png">
 
-
-Reviewing Calico pods
+Reviewing Calico pods.
 Let's take a look at the Calico pods that have been installed by the operator.
+```
 kubectl get pods -n calico-system
+```
 <img width="1350" alt="Screen Shot 2022-08-31 at 6 57 19" src="https://user-images.githubusercontent.com/66551005/188762700-35ea2f41-ebee-4131-b2c9-81087a09abfa.png">
 
-
 From here we can see that there are different pods that are deployed.
-    * calico-node: Calico-node runs on every Kubernetes cluster node as a DaemonSet. It is responsible for enforcing network policy, setting up routes on the nodes, plus managing any virtual interfaces for IPIP, VXLAN, or WireGuard.
-    * calico-typha: Typha is as a stateful proxy for the Kubernetes API server. It's used by every calico-node pod to query and watch Kubernetes resources without putting excessive load on the Kubernetes API server.  The Tigera Operator automatically scales the number of Typha instances as the cluster size grows.
-    * calico-kube-controllers: Runs a variety of Calico specific controllers that automate synchronization of resources. For example, when a Kubernetes node is deleted, it tidies up any IP addresses or other Calico resources associated with the node.
-Reviewing Node Health
+1. calico-node: Calico-node runs on every Kubernetes cluster node as a DaemonSet. It is responsible for enforcing network policy, setting up routes on the nodes, plus managing any virtual interfaces for IPIP, VXLAN, or WireGuard.
+2. calico-typha: Typha is as a stateful proxy for the Kubernetes API server. It's used by every calico-node pod to query and watch Kubernetes resources without putting excessive load on the Kubernetes API server.  The Tigera Operator automatically scales the number of Typha instances as the cluster size grows.
+3. calico-kube-controllers: Runs a variety of Calico specific controllers that automate synchronization of resources. For example, when a Kubernetes node is deleted, it tidies up any IP addresses or other Calico resources associated with the node.
+
+Reviewing Node Health.
+
 Finally, we can review the health of our Kubernetes nodes by invoking the kubectl command.
+```
 kubectl get nodes -A
+```
 Example output:
 <img width="1350" alt="Screen Shot 2022-08-31 at 6 58 06" src="https://user-images.githubusercontent.com/66551005/188762687-9104532c-b431-4338-990d-94ca90d2dc71.png">
 
-
 Now we can see that our Kubernetes nodes have a status of Ready and are operational. Calico is now installed on your cluster and you may proceed to the next module: Installing the Sample Application.
 
+ここまで完了
 
 Introduction to the Sample Application
 For this lab, we will be deploying an application called "Yet Another Online Bank" (yaobank). The application will consist of 3 microservices.
