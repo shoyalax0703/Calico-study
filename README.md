@@ -134,9 +134,6 @@ exit
 ```
 multipass stop --all
 ```
-```
-multipass list
-```
 Restart studying.
 ```
 multipass start control
@@ -161,7 +158,10 @@ multipass delete --all
 ```
 multipass purge
 ```
-
+See current status of nodes
+```
+multipass list
+```
 ## Introduction to the Sample Application
 For this lab, we will be deploying an application called "Yet Another Online Bank" (yaobank). The application will consist of 3 microservices.
 ![Introduction to the Sample Application](https://user-images.githubusercontent.com/66551005/188762676-dc611db8-069c-45d8-b7b9-9d17e910ebb7.png)
