@@ -127,7 +127,7 @@ Example output:
 Now we can see that our Kubernetes nodes have a status of Ready and are operational. Calico is now installed on your cluster and you may proceed to the next module: Installing the Sample Application.
 
 ## if you would like to stop studying during the course. 
-Delete nodes.
+Stop nodes.
 ```
 exit
 ```
@@ -137,6 +137,7 @@ multipass stop --all
 ```
 multipass list
 ```
+Restart studying.
 ```
 multipass start control
 ```
