@@ -51,10 +51,13 @@ Note the “NotReady” status. This is because we have not yet installed a CNI 
 The instance we will be using for the following labs will be host1 unless otherwise specified. Think of host1 as your primary entry point into the kubernetes ecosystem, with the other instances acting as the cluster in the cloud.
 
 We will be using the Tigera Operator to install and configure Calico.
-
+```
 multipass shell host1
-
+```
+```
 kubectl create -f https://docs.projectcalico.org/archive/v3.21/manifests/tigera-operator.yaml
+```
+
 Example output:
 <img width="1350" alt="entrollersconfigurations crd projectcalico org created" src="https://user-images.githubusercontent.com/66551005/188762776-54ebe240-9210-4ea4-92aa-be5f40ef7581.png">
 
