@@ -1184,13 +1184,13 @@ exit
 ### Calico native service handing
 About Calico eBPF
 Calico's eBPF dataplane is an alternative to the default standard Linux dataplane (which is iptables based). The eBPF dataplane has a number of advantages:
-    * It scales to higher throughput.
-    * It uses less CPU per GBit.
-    * It has native support for Kubernetes services (without needing kube-proxy) that:
-        * Reduces first packet latency for packets to services.
-        * Preserves external client source IP addresses all the way to the pod.
-        * Supports DSR (Direct Server Return) for more efficient service routing.
-        * Uses less CPU than kube-proxy to keep the dataplane in sync.
+1. It scales to higher throughput.
+2. It uses less CPU per GBit.
+3. It has native support for Kubernetes services (without needing kube-proxy) that:
+   - Reduces first packet latency for packets to services.
+   - Preserves external client source IP addresses all the way to the pod.
+   - Supports DSR (Direct Server Return) for more efficient service routing.
+   - Uses less CPU than kube-proxy to keep the dataplane in sync.
 The eBPF dataplane also has some limitations, which are described in the Enable the eBPF dataplane guide in the Calico documentation.
 
 To enable Calico eBPF we need to:
@@ -1283,8 +1283,8 @@ The traffic will get logged by the tcpdump, for example:
 <img width="1714" alt="Screen Shot 2022-09-06 at 15 03 16" src="https://user-images.githubusercontent.com/66551005/188761887-20b442cf-b08f-4b39-ad97-959d90ec1620.png">
 
 You can see there is traffic flowing via the node port in both directions. In this example:
-* Traffic from host1 to the node port: 198.19.15.254.57064 > 198.19.0.1.30180 
-* Traffic from the node port to host1: 198.19.0.1.30180 > 198.19.15.254.57064 
+1. Traffic from host1 to the node port: 198.19.15.254.57064 > 198.19.0.1.30180 
+2. Traffic from the node port to host1: 198.19.0.1.30180 > 198.19.15.254.57064 
 Leave the tcpdump command running and we’ll see what difference turning on DSR makes.
 Switch on DSR
 Run the following command from host1 to turn on DSR:
@@ -1411,57 +1411,58 @@ As you can see the service has been made available outside of the cluster via bg
 
 ## Review 
 We've covered five different ways for connecting to your pods from outside the cluster during this Module.
-    * Via a standard NodePort on a specific node. (This is how you connected to the YAO Bank web front end when you first deployed it.)
-    * Direct to the pod IP address by using externally routable IP Pools.
-    * Advertising the service cluster IP range. (And using ECMP to load balance across all nodes in the cluster.)
-    * Advertising individual cluster IPs. (Services with externalTrafficPolicy: Local, using ECMP to load balance only to the nodes hosting the pods backing the service.)
-    * Advertising service external-IPs. (So you can use service IP addresses outside of the cluster IP range.)
+1. Via a standard NodePort on a specific node. (This is how you connected to the YAO Bank web front end when you first deployed it.)
+2. Direct to the pod IP address by using externally routable IP Pools.
+3. Advertising the service cluster IP range. (And using ECMP to load balance across all nodes in the cluster.)
+4. Advertising individual cluster IPs. (Services with externalTrafficPolicy: Local, using ECMP to load balance only to the nodes hosting the pods backing the service.)
+5. Advertising service external-IPs. (So you can use service IP addresses outside of the cluster IP range.)
 
 
 Key notes: 
+
 kubernetes services 
-1, Can be thought of as a virtual load balancer built into the pod network
-2, Normally use label selectors to define which pods belong to a Service
-3, Are discoverable by pods through DNS (kube-dns)
-4, May include external load balancers
+1. Can be thought of as a virtual load balancer built into the pod network
+2. Normally use label selectors to define which pods belong to a Service
+3. Are discoverable by pods through DNS (kube-dns)
+4. May include external load balancers
 
 Cluster IP services
-1, Preserve pod source IP addresses all the way to the backing pods
-2, NAT the destination IP as part of load balancing to the backing pods
-3, Can be discovered using DNS (kube-dns)
-4, Can be advertised over BGP
+1. Preserve pod source IP addresses all the way to the backing pods
+2. NAT the destination IP as part of load balancing to the backing pods
+3. Can be discovered using DNS (kube-dns)
+4. Can be advertised over BGP
 
 Nodeport services when using kube-proxy
-1, NAT the source IP as part of load balancing to the backing pods
-2, NAT the destination IP as part of load balancing to the backing pods
+1. NAT the source IP as part of load balancing to the backing pods
+2. NAT the destination IP as part of load balancing to the backing pods
 
 Load balancer services typically:
-1, Use external network load balancers
-2, Use node ports
-3, Preserve source IP for services with externalTrafficPolicy:local
+1. Use external network load balancers
+2. Use node ports
+3. Preserve source IP for services with externalTrafficPolicy:local
 
 Kube-proxy: 
-1, Intercepts connections to services using rules it has programmed in the kernel
-2, Load balances connections to services to the pods backing the service
-3, Can use either iptables or IPVS rules for load balancing
-4, Scales to thousands of services
+1. Intercepts connections to services using rules it has programmed in the kernel
+2. Load balances connections to services to the pods backing the service
+3. Can use either iptables or IPVS rules for load balancing
+4. Scales to thousands of services
 
 Kube-proxy IPVS mode
-1, Scales to thousands of services
-2, Uses less CPU than iptables with thousands of services
+1. Scales to thousands of services
+2. Uses less CPU than iptables with thousands of services
 
 Calico native service handling
-1, Replaces kube-proxy
-2, Is implemented by the Calico eBPF dataplane
-3, Always preserves client source IP addresses
-4, Optionally supports DSR (Direct Server Return)
-5, Scales to thousands of services
-6, Has lower latency and uses less CPU than kube-proxy
+1. Replaces kube-proxy
+2. Is implemented by the Calico eBPF dataplane
+3. Always preserves client source IP addresses
+4. Optionally supports DSR (Direct Server Return)
+5. Scales to thousands of services
+6. Has lower latency and uses less CPU than kube-proxy
 
 Calico can use BGP to
 1. Advertise the cluster IP range of services
 2. Advertise external IP range of services
 3. Enable the underlying network to load balance services without a load balancer
 
-*** I got certified for Calico Operator: Level 1 !!! *** 
+***I got certified for Calico Operator: Level 1 !!!*** 
 ![CALICO](https://user-images.githubusercontent.com/66551005/188761737-963ffced-0e80-4b1f-bbf2-07c068d32823.png)
