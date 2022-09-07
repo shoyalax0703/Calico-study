@@ -1459,9 +1459,9 @@ Calico native service handling
 6, Has lower latency and uses less CPU than kube-proxy
 
 Calico can use BGP to
-1, Advertise the cluster IP range of services
-2, Advertise external IP range of services
-3, Enable the underlying network to load balance services without a load balancer
+1. Advertise the cluster IP range of services
+2. Advertise external IP range of services
+3. Enable the underlying network to load balance services without a load balancer
 
-*** I got certified for Calico Operator: Level 1 !!!
+*** I got certified for Calico Operator: Level 1 !!! *** 
 ![CALICO](https://user-images.githubusercontent.com/66551005/188761737-963ffced-0e80-4b1f-bbf2-07c068d32823.png)
