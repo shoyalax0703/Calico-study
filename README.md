@@ -126,6 +126,37 @@ Example output:
 
 Now we can see that our Kubernetes nodes have a status of Ready and are operational. Calico is now installed on your cluster and you may proceed to the next module: Installing the Sample Application.
 
+## if you would like to stop studying during the course. 
+```
+exit
+```
+```
+multipass stop --all
+```
+```
+multipass list
+```
+```
+multipass start control
+```
+```
+multipass start node1
+```
+```
+multipass start node2
+```
+```
+multipass start host1
+```
+
+Clean-up.
+```
+multipass delete --all
+```
+```
+multipass purge
+```
+
 ## Introduction to the Sample Application
 For this lab, we will be deploying an application called "Yet Another Online Bank" (yaobank). The application will consist of 3 microservices.
 ![Introduction to the Sample Application](https://user-images.githubusercontent.com/66551005/188762676-dc611db8-069c-45d8-b7b9-9d17e910ebb7.png)
@@ -172,21 +203,6 @@ curl 198.19.0.1:30180
 Example output:
 <img width="1102" alt="Screen Shot 2022-08-31 at 7 18 44" src="https://user-images.githubusercontent.com/66551005/188762626-d56c11e7-d8f8-4e7f-8069-d3c6b71ce1d9.png">
 
-if you would like to stop studying during the course. 
-```
-exit
-```
-multipass stop --all
-```
-multipass list
-```
-multipass start control
-multipass start node1
-multipass start node2
-multipass start host1
-Cleanup
-multipass delete --all
-multipass purge
 
 ![What is Network Policy](https://user-images.githubusercontent.com/66551005/188762606-0f452cd0-d88b-422a-8076-fadec7545f0f.png)
 
