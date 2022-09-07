@@ -64,7 +64,7 @@ Example output:
 ```
 kubectl get pods -n tigera-operator
 ```
-Example output
+Example output:
 
 <img width="1350" alt="STATUS RESTARTS" src="https://user-images.githubusercontent.com/66551005/188762765-5bf2f2c5-3735-4342-9a49-4e84828ad14f.png">
 
