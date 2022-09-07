@@ -980,36 +980,36 @@ It can be a good idea to periodically check IP allocations statistics to check y
 
 Key notes:
 overlay networks
-1, encapsulate pod to pod packets inside node to node packets
-2, can be implemented using IPIP
-3, can be implemented using VXLAN
-4, can be implemented using WireGuard with the added benefit of encryption
+1. encapsulate pod to pod packets inside node to node packets
+2. can be implemented using IPIP
+3. can be implemented using VXLAN
+4. can be implemented using WireGuard with the added benefit of encryption
 
 wireGuard 
-1, can be thought of as an overlay network with the added benefit of encryption
-2, uses status of the art encryption
-3, can be used by Calico to secure all pod to pod traffic over the underlying network
+1. can be thought of as an overlay network with the added benefit of encryption
+2. uses status of the art encryption
+3. can be used by Calico to secure all pod to pod traffic over the underlying network
 
 Calico IP pools 
-1, Define range of IP addresses that can be used for Calico IPAM
-2, Define IP range specific network behaviors such as overlay modes or NAT outgoing
-3, Can be considered to only be used by specific nodes, namespace, or pods
-4, Define the block sizes to be used in BGP route aggregation
+1. Define range of IP addresses that can be used for Calico IPAM
+2. Define IP range specific network behaviors such as overlay modes or NAT outgoing
+3. Can be considered to only be used by specific nodes, namespace, or pods
+4. Define the block sizes to be used in BGP route aggregation
 
 BGP is 
-1, a standard based routing protocol supported by most routers
-2, used to build the internet 
-3, can be used between calico nodes to share routes 
-4, can be used to share routes between calico and the underlying network 
-5, can be used to share service IPs with the underlying network 
-6, often used in on-prem or private cloud newworks 
+1. a standard based routing protocol supported by most routers
+2. used to build the internet 
+3. can be used between calico nodes to share routes 
+4. can be used to share routes between calico and the underlying network 
+5. can be used to share service IPs with the underlying network 
+6. often used in on-prem or private cloud newworks 
 
 Calico networking is 
-1, connects pods to the host using veth pairs 
-2, configures the host to act as a virtual router 
-3, programs local routes on each host for each of the pods on the host 
-4, can use BGP if wanted 
-5, can run as an overlay if wanted 
+1. connects pods to the host using veth pairs 
+2. configures the host to act as a virtual router 
+3. programs local routes on each host for each of the pods on the host 
+4. can use BGP if wanted 
+5. can run as an overlay if wanted 
 
 kubernetes services in details 
 サービスとは？
@@ -1069,11 +1069,11 @@ Example output:
 <img width="1657" alt="Screen Shot 2022-09-06 at 12 23 07" src="https://user-images.githubusercontent.com/66551005/188762038-a7a23c36-3a37-4baa-a684-03c13126371d.png">
 
 Each iptables chain consists of a list of rules that are executed in order until a rule matches. The key columns/elements to note in this output are:
-    * target - which chain iptables will jump to if the rule matches
-    * prot - the protocol match criteria
-    * source, and destination - the source and destination IP address match criteria
-    * the comments that kube-proxy includes
-    * the additional match criteria at the end of each rule - e.g dpt:80 that specifies the destination port match.
+1. target - which chain iptables will jump to if the rule matches
+2. prot - the protocol match criteria
+3. source, and destination - the source and destination IP address match criteria
+4. the comments that kube-proxy includes
+5. the additional match criteria at the end of each rule - e.g dpt:80 that specifies the destination port match.
 
 You can see this chain includes rules to jump to service specific chains, one for each service.
 KUBE-SERVICES -> KUBE-SVC-XXXXXXXXXXXXXXXX
@@ -1173,9 +1173,9 @@ Recap
 You've just traced the kube-proxy iptables rules used to load balance traffic to customer pods exposed as a service of type NodePort.
 In summary, for a packet being sent to a NodePort:
 The end of the KUBE-SERVICES chain jumps to the KUBE-NODEPORTS chain
-* The KUBE-NODEPORTS chain matches on the NodePort and jumps to the corresponding KUBE-SVC-XXXXXXXXXXXXXXXX chain.
-* The KUBE-SVC-XXXXXXXXXXXXXXXX chain load balances the packet to a random service endpoint KUBE-SEP-XXXXXXXXXXXXXXXX chain.
-* The KUBE-SEP-XXXXXXXXXXXXXXXX chain DNATs the packet so it will get routed to the service endpoint (backing pod).
+1. The KUBE-NODEPORTS chain matches on the NodePort and jumps to the corresponding KUBE-SVC-XXXXXXXXXXXXXXXX chain.
+2. The KUBE-SVC-XXXXXXXXXXXXXXXX chain load balances the packet to a random service endpoint KUBE-SEP-XXXXXXXXXXXXXXXX chain.
+3. The KUBE-SEP-XXXXXXXXXXXXXXXX chain DNATs the packet so it will get routed to the service endpoint (backing pod).
 Exit back to host1
 That’s it! We're done with this module. Exit the ssh session to node1 and return to host1.
 ```
@@ -1194,9 +1194,9 @@ Calico's eBPF dataplane is an alternative to the default standard Linux dataplan
 The eBPF dataplane also has some limitations, which are described in the Enable the eBPF dataplane guide in the Calico documentation.
 
 To enable Calico eBPF we need to:
-    * Configure Calico so it knows how to connect directly to the API server (rather than relying on kube-proxy to help it connect)
-    * Disable kube-proxy
-    * Configure Calico to switch to the eBPF dataplane
+1. Configure Calico so it knows how to connect directly to the API server (rather than relying on kube-proxy to help it connect)
+2. Disable kube-proxy
+3. Configure Calico to switch to the eBPF dataplane
 Configure Calico to connect directly to the API server
 In eBPF mode, Calico replaces kube-proxy. This means that Calico needs to be able to connect directly to the API server (just as kube-proxy would normally do). Calico supports a ConfigMap to configure these direct connections for all of its components.
 Note: It is important the ConfigMap points at a stable address for the API server(s) in your cluster. If you have a HA cluster, the ConfigMap should point at the load balancer in front of your API servers so that Calico will be able to connect even if one control plane node goes down. In clusters that use DNS load balancing to reach the API server (such as kops and EKS clusters) you should configure Calico to talk to the corresponding domain name.
