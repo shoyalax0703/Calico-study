@@ -107,6 +107,7 @@ Let's take a look at the Calico pods that have been installed by the operator.
 ```
 kubectl get pods -n calico-system
 ```
+Example output:
 <img width="1350" alt="Screen Shot 2022-08-31 at 6 57 19" src="https://user-images.githubusercontent.com/66551005/188762700-35ea2f41-ebee-4131-b2c9-81087a09abfa.png">
 
 From here we can see that there are different pods that are deployed.
@@ -125,57 +126,60 @@ Example output:
 
 Now we can see that our Kubernetes nodes have a status of Ready and are operational. Calico is now installed on your cluster and you may proceed to the next module: Installing the Sample Application.
 
-ここまで完了
-
-Introduction to the Sample Application
+## Introduction to the Sample Application
 For this lab, we will be deploying an application called "Yet Another Online Bank" (yaobank). The application will consist of 3 microservices.
 ![Introduction to the Sample Application](https://user-images.githubusercontent.com/66551005/188762676-dc611db8-069c-45d8-b7b9-9d17e910ebb7.png)
 
-
-
-    1. Customer (which provides a simple web GUI)
-    2. Summary (some middleware business logic)
-    3. Database (the persistent datastore for the bank)
+1. Customer (which provides a simple web GUI)
+2. Summary (some middleware business logic)
+3. Database (the persistent datastore for the bank)
 All the Kubernetes resources (Deployments, Pods, Services, Service Accounts, etc) for Yaobank will all be created within the yaobank namespace.
 
 To install yaobank into your kubernetes cluster, apply the following manifest:
+```
 kubectl apply -f https://raw.githubusercontent.com/tigera/ccol1/main/yaobank.yaml
-
-Check the Deployment Status
+```
+Check the Deployment Status.
 To validate that the application has been deployed into your cluster, we will check the rollout status of each of the microservices.
 
 Check the customer microservice:
+```
 kubectl rollout status -n yaobank deployment/customer
+```
 Example output:
 <img width="1142" alt="Screen Shot 2022-08-31 at 7 15 58" src="https://user-images.githubusercontent.com/66551005/188762663-d73a8f18-692f-464b-9933-87c02e10690c.png">
 
-
 Check the summary microservice:
+```
 kubectl rollout status -n yaobank deployment/summary
+```
 Example output:
 <img width="889" alt="deployment summary successfully rolled out" src="https://user-images.githubusercontent.com/66551005/188762652-ecb64d66-fa90-4372-8ba9-8610bb5fd6d1.png">
 
-
-
 Check the database microservice:
+
+```
 kubectl rollout status -n yaobank deployment/database
+```
 Example output:
 <img width="956" alt="kubectl rollout status" src="https://user-images.githubusercontent.com/66551005/188762642-0318c231-6d3e-4ff0-bb75-0847188a9ea9.png">
 
-
-
-Access the Sample Application Web GUI
+Access the Sample Application Web GUI.
 Now we can browse to the service using the service’s NodePort. The NodePort exists on every node in the cluster. We’ll use the control node, but you get the exact same behavior connecting to any other node in the cluster.
+```
 curl 198.19.0.1:30180
-
+```
 Example output:
 <img width="1102" alt="Screen Shot 2022-08-31 at 7 18 44" src="https://user-images.githubusercontent.com/66551005/188762626-d56c11e7-d8f8-4e7f-8069-d3c6b71ce1d9.png">
 
-
 if you would like to stop studying during the course. 
+```
 exit
+```
 multipass stop --all
+```
 multipass list
+```
 multipass start control
 multipass start node1
 multipass start node2
